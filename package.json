@@ -1,0 +1,31 @@
+{
+  "name": "blog-tdd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/island-fox-2017/blog-tdd.git"
+  },
+  "keywords": [
+    "Simple",
+    "tdd"
+  ],
+  "author": "fajar abdul karim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/island-fox-2017/blog-tdd/issues"
+  },
+  "homepage": "https://github.com/island-fox-2017/blog-tdd#readme",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "chai": "^4.1.1",
+    "chai-http": "^3.0.0"
+  }
+}
