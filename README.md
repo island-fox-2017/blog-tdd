@@ -2,13 +2,16 @@
 
 ## How To Use
 
-Go to server folder
+to run the server Go to server folder
 
 ```
 cd /server
 
 npm install
 npm run dev
-npm test
 
+```
+How to Test
+```
+npm test
 ```

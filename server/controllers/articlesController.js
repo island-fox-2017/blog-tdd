@@ -3,7 +3,8 @@ var Article = require('../models/article')
 
 
 var getAll = (req, res) => {
-  res.send('getAll')
+  let arr = []
+  res.send(arr)
 }
 
 var getOne = (req, res) => {
