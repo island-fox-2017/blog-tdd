@@ -1,0 +1,27 @@
+{
+  "name": "blog-tdd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PDVega/blog-tdd.git"
+  },
+  "keywords": [
+    "blog",
+    "tdd"
+  ],
+  "author": "pdvega",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PDVega/blog-tdd/issues"
+  },
+  "homepage": "https://github.com/PDVega/blog-tdd#readme",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "chai": "^4.1.1"
+  }
+}
