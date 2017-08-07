@@ -4,7 +4,8 @@ const Article = require('../models/Article')
 function createArticle(req,res){
   Article.create({
     judul: req.body.judul,
-    isi: req.body.isi
+    isi: req.body.isi,
+    author: req.body.author
   })
   .then(response=>{
     res.send(response)
