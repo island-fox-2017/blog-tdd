@@ -192,38 +192,49 @@ describe('CRUD PUT /api/articles/:id', function () {
       done()
     })
   })
+})
 
-  // it(`response have property content`, function(done) {
-  //   axios.post(url+`api/articles`, {
-  //     author: 'user',
-  //     title: 'coba',
-  //     content: 'ini content percobaan'
-  //   })
-  //   .then(response => {
-  //     response.data.should.have.property('content')
-  //     done()
-  //   })
-  //   .catch(err => {
-  //     console.log(err);
-  //   })
-  // })
-  //
-  // it(`response should have not property title`, function(done) {
-  //   axios.post(url+`api/articles`)
-  //   .then(response => {
-  //     response.data.should.have.not.property('title')
-  //     done()
-  //   })
-  //   .catch(err => {
-  //     console.log(err);
-  //   })
-  // })
-  //
-  // it(`error response should not found and have status 404`, function(done) {
-  //   axios.get(url+`api/artices`)
-  //   .catch(err => {
-  //     err.response.status.should.equal(404)
-  //     done()
-  //   })
-  // })
+describe('CRUD DELETE /api/articles/:id', function () {
+
+  var id
+
+  beforeEach(function(done) {
+    axios.post(url+`api/articles/`, {
+      author: 'fajar',
+      title: 'halo',
+      content: 'halo'
+    })
+    .then(response => {
+      console.log(response.data);
+      id = response.data._id
+      done()
+    })
+    .catch(err => {
+      console.log(err)
+      done()
+    })
+  })
+
+  afterEach(function(done) {
+    axios.delete(url+`api/articles/clear`)
+    .then(response => {
+      console.log(response.data);
+      done()
+    })
+    .catch(err => {
+      console.log(err);
+      done()
+    })
+  })
+
+  it(`response data should be 0`, function(done) {
+    axios.delete(url+`api/articles/${id}`)
+    .then(response => {
+      axios.get(url+`api/articles`)
+      .then(response => {
+        response.data.length.should.equal(0)
+        done()
+      })
+    })
+  })
 })
