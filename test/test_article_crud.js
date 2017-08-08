@@ -25,6 +25,30 @@ describe('GET /', function () {
 })
 
 describe('GET /api/articles', function () {
+  before(function(done) {
+    axios.post(url+`api/articles/seed`)
+    .then(response => {
+      console.log(response.data);
+      done()
+    })
+    .catch(err => {
+      console.log(err);
+      done()
+    })
+  })
+
+  after(function(done) {
+    axios.delete(url+`api/articles/clear`)
+    .then(response => {
+      console.log(response.data);
+      done()
+    })
+    .catch(err => {
+      console.log(err);
+      done()
+    })
+  })
+
   it(`response should be an array`, function(done) {
     axios.get(url+`api/articles`)
     .then(response => {
@@ -33,10 +57,10 @@ describe('GET /api/articles', function () {
     })
   })
 
-  it(`response should have 5 data`, function(done) {
+  it(`response should have 3 data`, function(done) {
     axios.get(url+`api/articles`)
     .then(response => {
-      response.data.length.equal(5)
+      response.data.length.should.equal(3)
       done()
     })
     .catch(err => {
@@ -47,7 +71,7 @@ describe('GET /api/articles', function () {
   it(`Should NOT an empty array`, function(done) {
     axios.get(url+`api/articles`)
     .then(response => {
-      response.data.should.not([])
+      response.data.length.should.not.equal(0)
       done()
     })
     .catch(err => {
@@ -63,6 +87,7 @@ describe('GET /api/articles', function () {
     })
   })
 })
+
 
 // describe('GET /api/articles/:articleID', function () {
 //   it(`response should have status 200`, function(done) {

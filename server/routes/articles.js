@@ -6,7 +6,9 @@ var articlesCtrl = require('../controllers/articlesController')
 router.get('/', articlesCtrl.getAll);
 router.get('/:id', articlesCtrl.getOne);
 router.post('/', articlesCtrl.create)
+router.post('/seed', articlesCtrl.seed)
 router.put('/:id', articlesCtrl.update)
+router.delete('/clear', articlesCtrl.removeAll)
 router.delete('/:id', articlesCtrl.remove)
 
 
