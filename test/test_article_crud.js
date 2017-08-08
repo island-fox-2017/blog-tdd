@@ -24,7 +24,7 @@ describe('GET /', function () {
   })
 })
 
-describe('GET /api/articles', function () {
+describe('CRUD GET /api/articles', function () {
   before(function(done) {
     axios.post(url+`api/articles/seed`)
     .then(response => {
@@ -88,148 +88,142 @@ describe('GET /api/articles', function () {
   })
 })
 
+describe('CRUD POST /api/articles', function () {
 
-// describe('GET /api/articles/:articleID', function () {
-//   it(`response should have status 200`, function(done) {
-//     axios.get(url+`api/articles/1`)
-//     .then(response => {
-//       response.should.have.status(200)
-//       done()
-//     })
-//   })
-//
-//   it(`Should not have response status 404`, function(done) {
-//     axios.get(url+`api/articles/1`)
-//     .then(response => {
-//       response.should.not.have.status(404)
-//       done()
-//     })
-//     .catch(err => {
-//       console.log(err);
-//     })
-//   })
-//
-//   it(`error response should have status 404`, function(done) {
-//     axios.get(url+`api/articles/1/2`)
-//     .catch(err => {
-//       err.response.status.should.equal(404)
-//       done()
-//     })
-//   })
-// })
-//
-// describe('POST /api/articles', function () {
-//   it(`response should have status 200`, function(done) {
-//     axios.post(url+`api/articles`)
-//     .then(response => {
-//       response.should.have.status(200)
-//       done()
-//     })
-//   })
-//
-//   it(`Should not have response status 404`, function(done) {
-//     axios.post(url+`api/articles`)
-//     .then(response => {
-//       response.should.not.have.status(404)
-//       done()
-//     })
-//     .catch(err => {
-//       console.log(err);
-//     })
-//   })
-//
-//   it(`error response should have status 404`, function(done) {
-//     axios.post(url+`api/artices/1123123123`)
-//     .catch(err => {
-//       err.response.status.should.equal(404)
-//       done()
-//     })
-//   })
-// })
-//
-// describe('PUT /api/articles/:articleID', function () {
-//   it(`response should have status 200`, function(done) {
-//     axios.put(url+`api/articles/1`)
-//     .then(response => {
-//       response.should.have.status(200)
-//       done()
-//     })
-//   })
-//
-//   it(`response should NOT have status 404`, function(done) {
-//     axios.put(url+`api/articles/1`)
-//     .then(response => {
-//       response.status.should.not.equal(404)
-//       done()
-//     })
-//     .catch(err => {
-//       console.log(err);
-//     })
-//   })
-//
-//   it(`error response should have status 404`, function(done) {
-//     axios.put(url+`api/articles/1/2343`)
-//     .catch(err => {
-//       err.response.status.should.equal(404)
-//       done()
-//     })
-//   })
-// })
-//
-// describe('PUT /api/articles', function () {
-//   it(`response should have status 200`, function(done) {
-//     axios.put(url+`api/articles/1`)
-//     .then(response => {
-//       response.should.have.status(200)
-//       done()
-//     })
-//   })
-//
-//   it(`response should NOT have status 404`, function(done) {
-//     axios.put(url+`api/articles/1`)
-//     .then(response => {
-//       response.status.should.not.equal(404)
-//       done()
-//     })
-//     .catch(err => {
-//       console.log(err);
-//     })
-//   })
-//
-//   it(`error response should have status 404`, function(done) {
-//     axios.put(url+`api/articles/`)
-//     .catch(err => {
-//       err.response.status.should.equal(404)
-//       done()
-//     })
-//   })
-// })
-//
-// describe('DELETE /api/articles/:articleID', function () {
-//   it(`response should have status 200`, function(done) {
-//     axios.delete(url+`api/articles/1`)
-//     .then(response => {
-//       response.should.have.status(200)
-//       done()
-//     })
-//   })
-//
-//   it(`response should NOT have status 404`, function(done) {
-//     axios.delete(url+`api/articles/1`)
-//     .then(response => {
-//       response.status.should.not.equal(404)
-//       done()
-//     })
-//     .catch(err => {
-//       console.log(err);
-//     })
-//   })
-//
-//   it(`error response should have status 404`, function(done) {
-//     axios.delete(url+`api/articles/`)
-//     .catch(err => {
-//       err.response.status.should.equal(404)
-//       done()
-//     })
-//   })
-// })
+  afterEach(function(done) {
+    axios.delete(url+`api/articles/clear`)
+    .then(response => {
+      console.log(response.data);
+      done()
+    })
+    .catch(err => {
+      console.log(err);
+      done()
+    })
+  })
+
+  it(`response should be an object`, function(done) {
+    axios.post(url+`api/articles`, {
+      author: 'fajar',
+      title: 'judul 1',
+      content: 'content judul 1'
+    })
+    .then(response => {
+      response.data.should.be.an('object')
+      done()
+    })
+  })
+
+  it(`response have property content`, function(done) {
+    axios.post(url+`api/articles`, {
+      author: 'user',
+      title: 'coba',
+      content: 'ini content percobaan'
+    })
+    .then(response => {
+      response.data.should.have.property('content')
+      done()
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  })
+
+  it(`response should have not property title`, function(done) {
+    axios.post(url+`api/articles`)
+    .then(response => {
+      response.data.should.have.not.property('title')
+      done()
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  })
+
+  it(`error response should not found and have status 404`, function(done) {
+    axios.get(url+`api/artices`)
+    .catch(err => {
+      err.response.status.should.equal(404)
+      done()
+    })
+  })
+})
+
+describe('CRUD PUT /api/articles/:id', function () {
+
+  var id
+
+  beforeEach(function(done) {
+    axios.post(url+`api/articles/`, {
+      author: 'fajar',
+      title: 'halo',
+      content: 'halo'
+    })
+    .then(response => {
+      console.log(response.data);
+      id = response.data._id
+      done()
+    })
+    .catch(err => {
+      console.log(err)
+      done()
+    })
+  })
+
+  afterEach(function(done) {
+    axios.delete(url+`api/articles/clear`)
+    .then(response => {
+      console.log(response.data);
+      done()
+    })
+    .catch(err => {
+      console.log(err);
+      done()
+    })
+  })
+
+  it(`response data title should be edited to edited`, function(done) {
+    console.log(`ini di test idnya ${id}`);
+    axios.put(url+`api/articles/${id}`, {
+      title: 'edited'
+    })
+    .then(response => {
+      response.data.title.should.equal('edited')
+      done()
+    })
+  })
+
+  // it(`response have property content`, function(done) {
+  //   axios.post(url+`api/articles`, {
+  //     author: 'user',
+  //     title: 'coba',
+  //     content: 'ini content percobaan'
+  //   })
+  //   .then(response => {
+  //     response.data.should.have.property('content')
+  //     done()
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //   })
+  // })
+  //
+  // it(`response should have not property title`, function(done) {
+  //   axios.post(url+`api/articles`)
+  //   .then(response => {
+  //     response.data.should.have.not.property('title')
+  //     done()
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //   })
+  // })
+  //
+  // it(`error response should not found and have status 404`, function(done) {
+  //   axios.get(url+`api/artices`)
+  //   .catch(err => {
+  //     err.response.status.should.equal(404)
+  //     done()
+  //   })
+  // })
+})

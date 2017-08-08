@@ -17,7 +17,18 @@ var getOne = (req, res) => {
 }
 
 var create = (req, res) => {
-  res.send('create')
+  let article = new Article({
+    author: req.body.author,
+    title: req.body.title,
+    content: req.body.content
+  })
+  article.save()
+  .then(created => {
+    res.send(created)
+  })
+  .catch(err => [
+    res.status(500).send(err)
+  ])
 }
 
 var seed = (req, res) => {
@@ -46,10 +57,8 @@ var seed = (req, res) => {
 }
 
 var removeAll = (req, res) => {
-  console.log(`------------ masuk clear`);
   Article.remove({})
   .then(removed => {
-    console.log(`--------------`);
     res.send(removed)
   })
   .catch(err => {
@@ -58,13 +67,31 @@ var removeAll = (req, res) => {
 }
 
 var remove = (req, res) => {
-  res.send('remove')
+  Article.findByIdAndRemove(req.params.id)
+  .then(removed => {
+    res.send(removed)
+  })
+  .catch(err => [
+    res.status(500).send(err)
+  ])
 }
 
 var update = (req, res) => {
-  res.send('update')
+  Article.findByIdAndUpdate(req.params.id, req.body, {new: true})
+  .then(updated => {
+    res.send(updated)
+  })
+  .catch(err => {
+    res.status(500).send(err)
+  })
 }
 
 module.exports = {
-  getAll, getOne, create, seed, remove, update, removeAll
+  getAll,
+  getOne,
+  create,
+  seed,
+  remove,
+  update,
+  removeAll
 }
