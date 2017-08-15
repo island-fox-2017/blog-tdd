@@ -12,9 +12,10 @@ app.use(cors());
 
 let signup = require('./routers/signup');
 let users = require('./routers/users');
+let articles = require('./routers/articles');
 
 app.use('/signup', signup);
 app.use('/users', users);
-
+app.use('/articles', articles);
 
 app.listen(process.env.PORT || 3000);
