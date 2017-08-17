@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var cors = require('cors')
 var url = 'mongodb://sukmahd:vongola12@cluster0-shard-00-00-h9kzb.mongodb.net:27017,cluster0-shard-00-01-h9kzb.mongodb.net:27017,cluster0-shard-00-02-h9kzb.mongodb.net:27017/blog-app?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin'
 var mongoose = require('mongoose')
 mongoose.connect(url)
@@ -17,6 +18,8 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+app.use(cors())
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
