@@ -5,7 +5,7 @@ const model = require('../models/Blog');
 let test = function(req, res) {
   let blog = {
     title: 'vlogger',
-    article: 'kaesang anak presiden adalah youtuber'
+    article: 'pewdiepie adalah youtuber'
   }
   res.send(blog);
 }
